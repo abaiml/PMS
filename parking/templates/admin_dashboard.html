@@ -1,0 +1,473 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+       
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #ffffff;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 5px 10px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+            width: 100%;
+            z-index: 1000;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
+
+        
+        .header .logo {
+            margin-left: 40px; 
+        }
+
+        
+        .menu-button {
+            padding: 2px; 
+            background: transparent; 
+            display: inline-flex;
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer;
+            color: #000000; 
+            border: 1px solid #000000; 
+            border-radius: 5px; 
+            transition: background-color 0.3s, border-color 0.3s, transform 0.3s;
+        }
+
+        .menu-button:hover {
+            background-color: #f0f0f0; 
+            border-color: #090c0e;
+            transform: scale(1.05); 
+        }
+
+        
+        .profile-button {
+            padding: 2px; 
+            background: transparent; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            cursor: pointer; 
+            color: #000000; 
+            border: 2px solid #000000; 
+            border-radius: 5px; 
+            transition: background-color 0.3s, border-color 0.3s, transform 0.3s; 
+        }
+
+        .profile-button:hover {
+            background-color: #000000; 
+            border-color: #007bff; 
+            transform: scale(1.05); 
+        }
+
+        .d-flex {
+            display: flex;
+            align-items: center; 
+        }
+
+        .greeting {
+            margin-right: 30px; 
+            font-size: 1rem;
+            color: #333;
+        }
+
+        .profile-button {
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            padding: 0; 
+            margin-right: 25px; 
+        }
+
+        .profile-button img {
+            border-radius: 50%; 
+            border: 1px solid #000000; 
+            object-fit: cover; 
+        }
+
+        .profile-dropdown {
+            display: none;
+            position: absolute;
+            right: 0; 
+            top: 100%; 
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 200px;
+            z-index: 10001;
+        }
+
+        .profile-dropdown.active {
+            display: block;
+        }
+
+        .profile-dropdown a,
+        .logout-button {
+            display: block;
+            padding: 10px 20px;
+            text-decoration: none;
+            color: #333;
+            border-bottom: 1px solid #f4f4f4;
+            transition: background-color 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .profile-dropdown a:hover {
+            background-color: #83b1e3;
+        }
+
+        .logout-button {
+            border: none;
+            background-color: #dc3545;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 15px;
+            margin: 10px 50px;
+        }
+
+        .logout-button:hover {
+            background-color: #000000a5;
+            color: #dc3545;
+        }
+
+       
+        .sidebar {
+            width: 70px;
+            height: calc(100% - 60px); 
+            background-color: #e7e7e779;
+            position: fixed;
+            top: 60px; 
+            left: 0;
+            transition: width 0.3s;
+            overflow-x: hidden;
+            padding-top: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, .6);
+            z-index: 999;
+        }
+
+        .sidebar.open {
+            width: 250px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            padding: 20px 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            display: flex;
+            align-items: center;
+            border-radius: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar ul li:hover {
+            background-color: #83b1e3;
+        }
+
+        .sidebar ul li:hover .item-icon {
+            color: #83b1e3;
+            transform: scale(1.1);
+        }
+
+        .sidebar ul li i {
+            font-size: 1.8rem;
+            margin-right: 20px;
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar ul li img {
+            width: 24px;
+            height: auto;
+            margin-right: 20px;
+        }
+
+        .sidebar ul li span {
+            display: none;
+            font-weight: bold;
+            color: #3d3838;
+        }
+
+        .sidebar.open ul li span {
+            display: inline;
+        }
+
+        .sidebar ul li a {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        
+        .main-content {
+            margin-left: 100px; 
+            margin-right: 0; 
+            padding: 20px; 
+            width: calc(100% - 100px); 
+            background-color: #f4f4f4;
+            height: calc(100vh - 90px); 
+            overflow-y: auto;
+            position: relative;
+            top: 50px; 
+        }
+
+        .dashboard-content {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .dashboard-header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            margin-top: 50px;
+        }
+
+        .dashboard-header p {
+            font-size: 1.2rem;
+            margin-bottom: 60px;
+            color: #e0e0e0;
+        }
+
+       
+        .dashboard-cards {
+            display: flex;
+            gap: 100px;
+            flex-wrap: wrap;
+        }
+
+        .card {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            width: 30%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-icon {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-icon img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .card-content h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .card-content p {
+            font-size: 1rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .card-button:hover {
+            background-color: #0056b3;
+        }
+
+        
+        @media (max-width: 992px) {
+            .dashboard-cards {
+                flex-direction: column;
+            }
+
+            .card {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    
+    <header class="header">
+        <div class="d-flex align-items-center">
+            <button class="menu-button">
+                <img src="{% static '20.png' %}" alt="Menu" style="width: 40px; height: 40px;">
+            </button>
+            <a href="{% url 'admin_dashboard' %}" class="logo">
+                <img src="{% static '17.png' %}" alt="Logo" style="width: 50px; height: 50px;">
+            </a>
+        </div>
+        <div class="d-flex align-items-center">
+            <span class="greeting">Welcome back, {{ user.username }}!</span>
+            <button class="profile-button">
+                <img src="{% static '16.png' %}" alt="Profile" style="width: 50px; height:  50px;">
+            </button>
+            <div class="profile-dropdown">
+                <a href="{% url 'admin:auth_user_changelist' %}">Manage Your Account</a>
+                <form action="{% url 'logoutuser' %}" method="post" class="logout-form">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-button">Logout</button>
+                </form>
+            </div>
+        </div>
+    </header>
+    
+   
+    <aside class="sidebar">
+        <ul>
+            <li id="dashboard">
+                <a href="{% url 'show_slots' %}">
+                    <img src="{% static '12.png' %}" alt="Dashboard Icon" class="item-icon" style="width: 50px; height:  50px; border-radius:5px;">
+                    <span>Parking Slots</span>
+                </a>
+            </li>
+            <li id="add-employee">
+                <a href="{% url 'add_employee' %}">
+                    <img src="{% static '21.png' %}" alt="Add Employee Icon" class="item-icon" style="width: 50px; height:  50px;">
+                    <span>Add Employee</span>
+                </a>
+            </li>
+            <li id="view-employee">
+                <a href="{% url 'show_employee' %}">
+                    <img src="{% static '19.png' %}" alt="View Employees Icon" class="item-icon" style="width: 50px; height:  50px;"> 
+                    <span>View Employees</span>
+                </a>
+            </li>
+            <li id="view-transactions">
+                <a href="{% url 'show_transactions' %}">
+                    <img src="{% static '11.png' %}" alt="View Transactions Icon" class="item-icon" style="width: 50px; height:  50px;">
+                    <span>View Transactions</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+   
+    <div class="main-content">
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <h1>Welcome to Your Admin Dashboard</h1>
+                <p>Take control of your management tasks with ease. Here’s what you can do today:</p>
+            </div>
+    
+            <div class="dashboard-cards">
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="{% static '25.png' %}" alt="Manage Staff" style="width: 200px; height:  200px;">
+                    </div>
+                    <div class="card-content">
+                        <h3>Manage Staff</h3>
+                        <p>Add, remove, and update staff details to keep your team organized.</p>
+                        <a href="{% url 'show_employee' %}" class="card-button">Go to Staff Management</a>
+                    </div>
+                </div>
+    
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="{% static '23.png' %}" alt="View Customers" style="width: 200px; height:  200px;">
+                    </div>
+                    <div class="card-content">
+                        <h3>View Parking Slots</h3>
+                        <p>View and monitor available parking slots to keep track of usage and space allocation.</p>
+                        <a href="{% url 'show_slots' %}" class="card-button">View Customer Data</a>
+                    </div>
+                </div>
+    
+                <div class="card">
+                    <div class="card-icon">
+                        <img src="{% static '24.png' %}" alt="Handle Transactions" style="width: 200px; height:  200px;">
+                    </div>
+                    <div class="card-content">
+                        <h3>Handle Transactions</h3>
+                        <p>Monitor and manage financial transactions in real time for accuracy.</p>
+                        <a href="{% url 'show_transactions' %}" class="card-button">View Transactions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+           
+            $('.sidebar').hover(
+                function () {
+                    $(this).addClass('open');
+                    $('.main-content').addClass('expanded');
+                }, function () {
+                    $(this).removeClass('open');
+                    $('.main-content').removeClass('expanded');
+                }
+            );
+
+           
+            $('.menu-button').on('click', function () {
+                $('.sidebar').toggleClass('open');
+                $('.main-content').toggleClass('expanded');
+            });
+
+           
+            $('.profile-button').on('click', function () {
+                $('.profile-dropdown').toggleClass('active');
+            });
+
+           
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('.profile-button, .profile-dropdown').length) {
+                    $('.profile-dropdown').removeClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

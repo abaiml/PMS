@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Car Slot</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1b1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .container {
+            max-width: 1000px; /* Adjusted width for centering */
+            width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            height: 80vh; /* Full height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 columns */
+            gap: 80px; /* Margin between slots */
+            justify-content: center; /* Center the grid */
+            margin-bottom: 100px;
+            flex-grow: 1; /* Take up remaining space */
+        }
+        .slot {
+            padding: 20px;
+            background-color: #1ed133;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%; /* Full height of grid cell */
+        }
+        .slot.selected {
+            background-color: #f2ff3c;
+            color: #000;
+        }
+        .slot.occupied {
+            background-color: #f44336;
+            color: #fff;
+            cursor: not-allowed;
+        }
+        .slot:hover:not(.occupied) {
+            background-color: #f4f414;
+        }
+        button {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            background-color: #0056b3;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Your Car Slot</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="slot-grid">
+                {% for slot in slots %}
+                    <div class="slot {% if not slot.is_available %}occupied{% endif %}" data-slot="{{ slot.slot_number }}">
+                        {{ slot.slot_number }}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="submit" id="bookButton" disabled>Book Selected Slot</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            let selectedSlot = null;
+
+            $('.slot').click(function() {
+                if (!$(this).hasClass('occupied')) {
+                    $('.slot').removeClass('selected');
+                    $(this).addClass('selected');
+                    selectedSlot = $(this).data('slot');
+                    $('#bookButton').prop('disabled', false);
+                }
+            });
+
+            $('form').submit(function() {
+                if (selectedSlot) {
+                    $('<input>').attr({
+                        type: 'hidden',
+                        name: 'slot_number',
+                        value: selectedSlot
+                    }).appendTo('form');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

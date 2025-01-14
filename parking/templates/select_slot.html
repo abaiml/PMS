@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Vehicle Type</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('/static/7.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0);
+            padding: 40px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+        }
+        h1 {
+            color: #fff; /* Make the text color white for better contrast */
+            margin-bottom: 100px;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+        }
+        .button {
+            background: linear-gradient(145deg, #7696a4, #4a5d6b); /* Gradient background */
+            color: #fff;
+            padding: 20px; /* Reduced padding for more consistency */
+            font-size: 24px;
+            width: 180px; 
+            height: 180px;
+            border-radius: 50%;
+            text-decoration: none;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Shadow effect for depth */
+            line-height: 140px; /* Center text vertically */
+        }
+        .button:hover {
+            background: linear-gradient(145deg, #4a5d6b, #7696a4); /* Reverse gradient on hover */
+            transform: scale(1.1); /* Slightly increase size on hover */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+        }
+        .button:active {
+            background: linear-gradient(145deg, #4a5d6b, #7696a4); /* Consistent gradient on active */
+            transform: scale(0.95); /* Slightly decrease size on active */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Reduced shadow on active */
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+        .logout-button a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            border: 2px solid #fff;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            font-weight: bold;
+        }
+        .logout-button a:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logout-button">
+            <a href="{% url 'logoutuser' %}">Logout</a>
+        </div>
+        <h1>Select Vehicle Type</h1>
+        <form method="post">
+            {% csrf_token %}
+            <div class="button-group">
+                <button type="submit" name="vehicle_type" value="car" class="button">Car Slots</button>
+                <button type="submit" name="vehicle_type" value="bike" class="button">Bike Slots</button>
+            </div>
+        </form>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parking Slots</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #331515;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            border: 1px solid #ddd;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .nav-buttons button {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .nav-buttons button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+        .slot-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px; 
+            justify-content: center;
+            width: 100%;
+            max-height: 60vh; 
+            overflow-y: hidden; 
+        }
+        .slot-section {
+            width: 100%;
+            overflow-y: auto; 
+            padding-right: 20px;
+        }
+        .slot {
+            padding: 15px;
+            background-color: #1ed133;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            box-sizing: border-box; 
+        }
+        .slot.occupied {
+            background-color: #f44336;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="slot-title">Parking Slots</h1>
+
+        
+        <div class="nav-buttons">
+            <button id="carSlotButton">Car Slots</button>
+            <button id="bikeSlotButton">Bike Slots</button>
+        </div>
+
+        
+        <div id="car-slot-section" class="slot-section">
+            <h2>Car Slots</h2>
+            <div class="slot-grid">
+                {% for slot in car_slots %}
+                    <div class="slot {% if not slot.is_available %}occupied{% endif %}">
+                        {{ slot.slot_number }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+       
+        <div id="bike-slot-section" class="slot-section">
+            <h2>Bike Slots</h2>
+            <div class="slot-grid">
+                {% for slot in bike_slots %}
+                    <div class="slot {% if not slot.is_available %}occupied{% endif %}">
+                        {{ slot.slot_number }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+        
+            $('#car-slot-section').hide();
+            $('#bike-slot-section').hide();
+
+           
+            $('#carSlotButton').click(function() {
+                $('#car-slot-section').toggle();
+                $('#bike-slot-section').hide();
+            });
+
+            $('#bikeSlotButton').click(function() {
+                $('#bike-slot-section').toggle();
+                $('#car-slot-section').hide();
+            });
+        });
+    </script>
+</body>
+</html>

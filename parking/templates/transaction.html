@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        .transaction-info {
+            margin-bottom: 20px;
+        }
+
+        .transaction-info strong {
+            color: #333;
+        }
+
+        .confirm-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center;
+            display: block;
+        }
+
+        .confirm-button:hover {
+            background-color: #45a049;
+        }
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .alert.success {
+            background-color: #4CAF50;
+        }
+
+        .alert.error {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Transaction Details</h1>
+        <div class="transaction-info">
+            <p><strong>Customer Name:</strong> {{ booking.customer_name }}</p>
+            <p><strong>Slot Number:</strong> {{ booking.slot.slot_number }}</p>
+            <p><strong>Plate Number:</strong> {{ booking.plate_number }}</p>
+            <p><strong>Amount to be Paid:</strong> ₹{{ amount|floatformat:2 }}</p>
+            <p><strong>Payment Status:</strong> {{ transaction.payment_status }}</p>
+        </div>
+        {% if transaction.payment_status == 'Pending' %}
+            <form method="post" action="{% url 'finalize_transaction' booking.id %}">
+                {% csrf_token %}
+                <button type="submit" class="confirm-button">Confirm Payment & Vacate Slot</button>
+            </form>
+        {% else %}
+            <p style="color: green; text-align: center;">Payment Completed Successfully</p>
+        {% endif %}
+    </div>
+    {% if message %}
+            <div class="alert {% if 'No transaction found' in message %}error{% else %}success{% endif %}">
+                {{ message }}
+            </div>
+    {% endif %}
+</body>
+</html>

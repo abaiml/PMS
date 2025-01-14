@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exit Parking Slot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('/static/6.jpg') no-repeat center center fixed;
+            background-size: 55% auto;
+            background-position: center center; 
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.9); 
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        input[type="datetime-local"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #4CAF50;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #111311; 
+            text-shadow: 0 2px 4px rgba(30, 76, 26, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Exit Parking Slot</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="check_out_time">Check Out Time:</label>
+            <input type="datetime-local" name="check_out_time" required>
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{% url 'vacate_slot_list' %}" class="back-link">Back to Slot List</a>
+    </div>
+</body>
+</html>
