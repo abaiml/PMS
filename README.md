@@ -11,7 +11,7 @@ Admin Dashboard: Manage employees, customers, and transactions.
 Transaction Management: Track all payments and generate invoices.
 
 📂 Project Structure
-
+```
 management/ (Project settings)
 │-- parking/ (Main app)
 │   ├── models.py          # Database models (Employee, ParkingSlot, Booking, Transaction)
@@ -26,7 +26,7 @@ management/ (Project settings)
 │-- db.sqlite3             # SQLite database
 │-- requirements.txt       # Dependencies
 │-- README.md              # Project Documentation
-
+```
 🛠️ Installation
 
 1. Clone the repository
