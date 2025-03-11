@@ -1,7 +1,7 @@
-# **🚗 Smart Parking Management System (SPMS)**
+## **🚗 Smart Parking Management System (SPMS)**
 A Django-based web application for managing parking slots efficiently. The system automates parking allocation, booking, and payments while providing real-time monitoring.
 
-# **📌 Features**
+### **📌 Features**
 
 - User Authentication: Secure login and role-based access (Admin, Entry, Exit Employees).
 - Slot Management: Book and vacate parking slots for cars and bikes.
@@ -10,7 +10,7 @@ A Django-based web application for managing parking slots efficiently. The syste
 - Admin Dashboard: Manage employees, customers, and transactions.
 - Transaction Management: Track all payments and generate invoices.
 
-# **📂 Project Structure**
+### **📂 Project Structure**
 ```
 management/ (Project settings)
 │-- parking/ (Main app)
@@ -27,7 +27,7 @@ management/ (Project settings)
 │-- requirements.txt       # Dependencies
 │-- README.md              # Project Documentation
 ```
-# **🛠️ Installation**
+### **🛠️ Installation**
 
 1. Clone the repository
   ```
@@ -54,7 +54,7 @@ management/ (Project settings)
 ```
 Open your browser and go to http://127.0.0.1:8000/.
 
-# **🔑 Environment Variables**
+### **🔑 Environment Variables**
 
 Create a .env file and add the following credentials:
 ```
@@ -64,13 +64,13 @@ EMAIL_HOST_PASSWORD=your-email-password
 RAZORPAY_KEY_ID=your-razorpay-key-id
 RAZORPAY_KEY_SECRET=your-razorpay-key-secret
 ```
-# **📧 Email Notifications**
+### **📧 Email Notifications**
 The system sends automated emails for booking confirmation and payment details. Ensure that SMTP settings in settings.py are configured correctly.
 
-# **💰 Payment Integration**
+### **💰 Payment Integration**
 SPMS uses Razorpay for handling online payments. Update your Razorpay credentials in settings.py before deploying.
 
-# **🏗️ Deployment**
+### **🏗️ Deployment**
 
 1. Set up production server (e.g., AWS, Heroku)
 2. Set DEBUG=False in settings.py
@@ -82,11 +82,11 @@ SPMS uses Razorpay for handling online payments. Update your Razorpay credential
 5. Configure a WSGI server (e.g., Gunicorn, Nginx)
 6. Use a production-ready database (e.g., PostgreSQL)
 
-# **📜 License**
+### **📜 License**
 This project is open-source and available under the MIT License.
 
-# **🤝 Contributing**
+### **🤝 Contributing**
 Feel free to fork the repository and submit pull requests. For major changes, please open an issue first to discuss.
 
-# **📞 Support**
+### **📞 Support**
 For any issues or feature requests, create an issue in the repository or contact the developer ayushbora1001@gmail.com.
