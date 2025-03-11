@@ -3,12 +3,12 @@ A Django-based web application for managing parking slots efficiently. The syste
 
 📌 Features
 
-User Authentication: Secure login and role-based access (Admin, Entry, Exit Employees).
-Slot Management: Book and vacate parking slots for cars and bikes.
-Razorpay Integration: Online payments for parking charges.
-Email Notifications: Automatic emails for slot booking and payments.
-Admin Dashboard: Manage employees, customers, and transactions.
-Transaction Management: Track all payments and generate invoices.
+- User Authentication: Secure login and role-based access (Admin, Entry, Exit Employees).
+- Slot Management: Book and vacate parking slots for cars and bikes.
+- Razorpay Integration: Online payments for parking charges.
+- Email Notifications: Automatic emails for slot booking and payments.
+- Admin Dashboard: Manage employees, customers, and transactions.
+- Transaction Management: Track all payments and generate invoices.
 
 📂 Project Structure
 ```
