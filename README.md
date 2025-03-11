@@ -1,16 +1,16 @@
-## **🚗 Smart Parking Management System (SPMS)**
+## 🚗 Smart Parking Management System (SPMS)
 A Django-based web application for managing parking slots efficiently. The system automates parking allocation, booking, and payments while providing real-time monitoring.
 
-### **📌 Features**
+### 📌 Features
 
-- User Authentication: Secure login and role-based access (Admin, Entry, Exit Employees).
-- Slot Management: Book and vacate parking slots for cars and bikes.
-- Razorpay Integration: Online payments for parking charges.
-- Email Notifications: Automatic emails for slot booking and payments.
-- Admin Dashboard: Manage employees, customers, and transactions.
-- Transaction Management: Track all payments and generate invoices.
+- **User Authentication**: Secure login and role-based access (Admin, Entry, Exit Employees).
+- **Slot Management: Book** and vacate parking slots for cars and bikes.
+- **Razorpay Integration**: Online payments for parking charges.
+- **Email Notifications**: Automatic emails for slot booking and payments.
+- **Admin Dashboard**: Manage employees, customers, and transactions.
+- **Transaction Management**: Track all payments and generate invoices.
 
-### **📂 Project Structure**
+### 📂 Project Structure
 ```
 management/ (Project settings)
 │-- parking/ (Main app)
@@ -27,7 +27,7 @@ management/ (Project settings)
 │-- requirements.txt       # Dependencies
 │-- README.md              # Project Documentation
 ```
-### **🛠️ Installation**
+### 🛠️ Installation
 
 1. Clone the repository
   ```
