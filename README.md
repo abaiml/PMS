@@ -12,14 +12,14 @@ Transaction Management: Track all payments and generate invoices.
 
 📂 Project Structure
 
-management/
+management/ (Project settings)
 │-- parking/ (Main app)
 │   ├── models.py          # Database models (Employee, ParkingSlot, Booking, Transaction)
 │   ├── views.py           # Core business logic
 │   ├── urls.py            # Route definitions
 │   ├── templates/         # HTML templates
 │   ├── static/            # CSS, JS, Images
-│-- management/ (Project settings)
+│-- management/
 │   ├── settings.py        # Django settings
 │   ├── urls.py            # Project-wide URLs
 │   ├── wsgi.py            # WSGI entry point
