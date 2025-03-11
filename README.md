@@ -31,26 +31,26 @@ management/
 
 1. Clone the repository
 
-  git clone https://github.com/abaiml/PMS.git
-  cd PMS
+git clone https://github.com/abaiml/PMS.git
+cd PMS
 
 2. Create a virtual environment & activate it
 
-  python -m venv venv
-  source venv/bin/activate  # On macOS/Linux
-  venv\Scripts\activate     # On Windows
+python -m venv venv
+source venv/bin/activate  # On macOS/Linux
+venv\Scripts\activate     # On Windows
 
 3. Install dependencies
 
-  pip install -r requirements.txt
+pip install -r requirements.txt
 
 4. Apply database migrations
 
-  python manage.py migrate
+python manage.py migrate
 
 5. Run the development server
 
-  python manage.py runserver
+python manage.py runserver
 Open your browser and go to http://127.0.0.1:8000/.
 
 🔑 Environment Variables
@@ -74,11 +74,11 @@ SPMS uses Razorpay for handling online payments. Update your Razorpay credential
 1. Set up production server (e.g., AWS, Heroku)
 2. Set DEBUG=False in settings.py
 3. Run migrations and collect static files
-    python manage.py migrate
-    python manage.py collectstatic --noinput
+python manage.py migrate
+python manage.py collectstatic --noinput
 4. Configure a WSGI server (e.g., Gunicorn, Nginx)
 5. Use a production-ready database (e.g., PostgreSQL)
-   
+
 📜 License
 This project is open-source and available under the MIT License.
 
