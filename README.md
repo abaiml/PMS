@@ -124,21 +124,6 @@ Update your Razorpay credentials in `.env` before deploying.
 
 ---
 
-## 🏧 Deployment Checklist
-
-1. Set up production server (AWS, Heroku, etc.)
-2. Set `DEBUG=False` in `settings.py`
-3. Set up environment variables securely
-4. Run migrations and collect static files
-   ```bash
-   python manage.py migrate
-   python manage.py collectstatic --noinput
-   ```
-5. Use a production-ready database (e.g., PostgreSQL)
-6. Configure WSGI server (Gunicorn + Nginx)
-
----
-
 ## 📜 License
 
 This project is open-source and available under the **MIT License**.
