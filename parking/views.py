@@ -2,12 +2,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.models import User
-from django.conf import settings
-from django.core.mail import send_mail
 from django.contrib import messages
 import razorpay
 
-
+from .tasks import *
 
 
 def index(request):
@@ -170,20 +168,8 @@ def customer_form(request):
             slot.is_available = False
             slot.save()
 
-            message = (
-                f"Dear  **{customer_name}**, \n\n"
-                f"Your parking slot  **{slot_number}**  has been successfully booked for your vehicle  **{plate_number}**.\n\n"
-                f"Please park your vehicle in slot  **{slot_number}**. We hope you have a great day!\n\n"
-                f"Thank you for choosing our parking service."
-            )
-
-            send_mail(
-                'Parking Slot Booking Confirmation',
-                message,
-                settings.DEFAULT_FROM_EMAIL,
-                [customer_email],
-                fail_silently=False,
-            )
+            send_booking_confirmation.delay(customer_name,plate_number,slot_number,customer_email)
+            
 
             return render(request, 'booking_success.html')
         else:
@@ -262,28 +248,7 @@ def transaction(request, booking_id):
     )
 
     # Prepare the email message with the Razorpay payment link
-    subject = 'Parking Slot Payment Details'
-    message = (
-        f"Hello {booking.customer_name},\n\n"
-        "Thank you for using our parking service!\n\n"
-        "Your parking session has ended. Below are the details for your payment:\n"
-        f"Plate Number: {booking.plate_number}\n"
-        f"Total Amount Due: ₹{amount:.2f}\n"
-        "Please make your payment by clicking the link below:\n\n"
-        f"Pay Now: {payment_link_url}\n\n"
-        "If you have any questions or need assistance, feel free to ask.\n\n"
-        "Best regards,\n"
-        "Your Parking Management Team"
-    )
-
-    # Send the email with the payment link
-    send_mail(
-        subject,
-        message,
-        settings.DEFAULT_FROM_EMAIL,
-        [booking.customer_email],
-        fail_silently=False
-    )
+    send_payment_email.delay(booking.customer_name,booking.plate_number,amount,payment_link_url,booking.customer_email)
 
     # Render the transaction page with the necessary details
     return render(request, 'transaction.html', {
