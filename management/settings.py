@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'parking'
+    'parking',
+    'django_celery_results',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -106,11 +108,12 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+USE_TZ = True
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
-USE_TZ = False
+
 
 
 # Static files (CSS, JavaScript, Images)
@@ -129,12 +132,20 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'your email address'
-EMAIL_HOST_PASSWORD = 'your email password'
-DEFAULT_FROM_EMAIL = 'your default email address'
-
+EMAIL_HOST_USER = 'ayushbora1001@gmail.com'
+EMAIL_HOST_PASSWORD = 'qxzw uztk uwyt nqpu'
+DEFAULT_FROM_EMAIL = 'ayushbora1001@gmail.com'
 LOGIN_URL = '/login/'
 
-RAZORPAY_KEY_ID = 'your razorpay key id'
-RAZORPAY_KEY_SECRET = 'your razorpay key secret'
+RAZORPAY_KEY_ID = 'rzp_test_tm5OJwRTZ41THc'
+RAZORPAY_KEY_SECRET = 'WKl3U5lv5wVf7ylQBr4TxLMY'
 
+
+CELERY_BROKER_URL='redis://:1234@localhost:6379/0'
+CELERY_ACCEPT=['application/json']
+CERELY_TASK_SERIALIZER='json'
+CELERY_RESULT_SERIALIZER='json'
+CELERY_RESULT_BACKEND='django-db'
+CELERY_TIMEZONE='Asia/Kolkata'
+
+CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'
