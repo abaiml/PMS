@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ib4a69^%xu^$b$%qmau_hc*b%6cs$1v2&av&quth+@*&s(!es^'
+SECRET_KEY = 'your-django-key'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'parking',
     'django_celery_results',
-    'django_celery_beat'
+    
 ]
 
 MIDDLEWARE = [
@@ -132,20 +132,18 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True  
 EMAIL_USE_SSL = False
-EMAIL_HOST_USER = 'ayushbora1001@gmail.com'
-EMAIL_HOST_PASSWORD = 'qxzw uztk uwyt nqpu'
-DEFAULT_FROM_EMAIL = 'ayushbora1001@gmail.com'
+EMAIL_HOST_USER = 'your-email'
+EMAIL_HOST_PASSWORD = 'your-email'
+
 LOGIN_URL = '/login/'
 
-RAZORPAY_KEY_ID = 'rzp_test_tm5OJwRTZ41THc'
-RAZORPAY_KEY_SECRET = 'WKl3U5lv5wVf7ylQBr4TxLMY'
+RAZORPAY_KEY_ID = 'your-razor-id'
+RAZORPAY_KEY_SECRET = 'your-secret-key'
 
 
-CELERY_BROKER_URL='redis://:1234@localhost:6379/0'
+CELERY_BROKER_URL='your-redis-connection-url'
 CELERY_ACCEPT=['application/json']
 CERELY_TASK_SERIALIZER='json'
 CELERY_RESULT_SERIALIZER='json'
-CELERY_RESULT_BACKEND='django-db'
+CELERY_RESULT_BACKEND='your-db'
 CELERY_TIMEZONE='Asia/Kolkata'
-
-CELERY_BEAT_SCHEDULER='django_celery_beat.schedulers:DatabaseScheduler'
