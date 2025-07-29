@@ -1,6 +1,6 @@
 # 🚗 Smart Parking Management System (SPMS)
 
-A django-based web application for managing parking slots efficiently. The system automates parking allocation, booking, payments, and notifications while providing real-time monitoring.
+A Django-based web application for managing parking slots efficiently. The system automates parking allocation, booking, payments, and notifications while providing real-time monitoring.
 
 ---
 
